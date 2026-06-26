@@ -8,7 +8,7 @@
 #include "arquivos.c"
 #include "user.h"
 
-int main(void) {
+int signup_main(void) {
   // coletar ano e data atual 
   struct tm *data;
   time_t tempo;

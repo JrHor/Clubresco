@@ -6,10 +6,9 @@
 #include "user.h"
 
 void user_init(User* target, char* nome, char* senha, int ano_nasc) {
-  target->nome = nome;
-  target->senha = senha;
+  strcpy(target->nome, nome);
+  strcpy(target->senha, senha);
   target->ano_nasc = ano_nasc;
-
 }
 
 void cadastrar_usuario(User user){
@@ -32,13 +31,13 @@ void cadastrar_usuario(User user){
 }
 
 void ler_usuario(User* retorno, char* nome) {
-  FILE* f;
+  FILE* f = NULL;
   char caminho[128] = "./";
 
   strcat(caminho, nome);
   strcat(caminho, ".usr");
 
-  fopen(caminho, "rb");
+  f = fopen(caminho, "rb");
 
   if (f == NULL) {
     printf("Erro ao acessar arquivo\n");

@@ -124,4 +124,19 @@ bool existe_arquivo(char caminho[]) {
     }
     return false; 
 }
+/*
+verifica se um arquivo binkário existe, retorna true se sim e false se não
+*/
+bool existe_arquivo_bin(char caminho[]) {
+    char caminho_relativo[100] = "./";
+    FILE *arquivo;
 
+    strcat(caminho_relativo,caminho);
+    arquivo = fopen(caminho, "rb");
+
+    if (arquivo != NULL) {
+        fclose(arquivo); // Fecha o arquivo se ele existir
+        return true;        // O arquivo existe
+    }
+    return false; 
+}

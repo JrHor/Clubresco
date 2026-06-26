@@ -1,10 +1,10 @@
 #ifndef USER_H
-
+#define USER_H
 // Types
 
 typedef struct {
-  const char* nome;
-  const char* senha;
+  char nome[56];
+  char senha[56];
   int ano_nasc;
 } User;
 
