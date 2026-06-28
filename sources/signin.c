@@ -5,9 +5,8 @@
 
 #include "user.h"
 #include "signin.h"
-#include "arquivos.c"
 
-void signin_main(*User return)
+void signin_main(User* retorno)
 {
   printf("Bem vindo novamente ao Clubresco!\nDigite 'q' para sair\n");
 init:
@@ -45,5 +44,5 @@ init:
   }
   
   printf("Bem vindo(a) %s!", nome);
-  user_init(return, user.nome, user.senha, user.ano_nasc);
+  user_init(retorno, user.nome, user.senha, user.ano_nasc);
 }

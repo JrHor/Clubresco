@@ -1,11 +1,27 @@
 #ifndef USER_H
 #define USER_H
+
+#include <time_h>
+
 // Types
+typedef struct {
+  time_t data_ven;
+  double pagamento;
+} Emprestimos;
+
+typedef struct {
+  time_t data_inv;
+  double coin;
+  float rendimento;
+} Investimentos;
 
 typedef struct {
   char nome[56];
   char senha[56];
   int ano_nasc;
+  double coin;
+  Emprestimos emprestimos;
+  Investimentos investimento;
 } User;
 
 // Functions

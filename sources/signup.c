@@ -5,10 +5,9 @@
 #include <time.h>
 
 #include "signup.h"
-#include "arquivos.c"
 #include "user.h"
 
-int signup_main(void) {
+void signup_main(void) {
   // coletar ano e data atual 
   struct tm *data;
   time_t tempo;
@@ -26,20 +25,20 @@ init:
   printf("Cadastre-se no Clubresco ou 'q' para sair\n" \
          "Nome (26 chars): ");
   scanf(" %26s", nome);
-  if (!strcmp(nome, "q")) return EXIT_SUCCESS;
+  if (!strcmp(nome, "q")) return ;
 
   printf("Senha (26 chars): ");
   scanf(" %26s", senha);
-  if (!strcmp(senha, "q")) return EXIT_SUCCESS;
+  if (!strcmp(senha, "q")) return ;
 
   printf("Ano de nascimento: ");
   scanf(" %d", &ano);
-  if (ano == 'q') return EXIT_SUCCESS;
+  if (ano == 'q') return ;
 
   //verificação
   if ((data->tm_year - ano) < 16) {
     printf("Idade abaixo do permitido\n");
-    return EXIT_SUCCESS;
+    return ;
   }
 
   char nome_usr[61] = "";
@@ -57,5 +56,5 @@ init:
 
   cadastrar_usuario(user);
   printf("Boas vindas ao Clubresco %s!\n", nome);  
-  return EXIT_SUCCESS;
+  return ;
 }

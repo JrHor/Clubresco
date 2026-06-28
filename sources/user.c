@@ -9,6 +9,12 @@ void user_init(User* target, char* nome, char* senha, int ano_nasc) {
   strcpy(target->nome, nome);
   strcpy(target->senha, senha);
   target->ano_nasc = ano_nasc;
+  target->coin = 0.0L;
+  target->emprestimos->data_ven = 0;
+  target->emprestimos->pagamento = 0.0L;
+  target->investimento->data_inv = 0;
+  target->investimento->coin = 0.0L;
+  target->investimento->rendimento = 0.0;
 }
 
 void cadastrar_usuario(User user){
