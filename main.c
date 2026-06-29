@@ -1,10 +1,12 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "sources/arquivos.c" // maldito adolfo
 #include "user.h"
 #include "signin.h"
 #include "signup.h"
+#include "deposit.h"
 
 typedef enum {
   COM_SIGNIN = 1,
@@ -13,7 +15,7 @@ typedef enum {
 } commands_init;
 
 typedef enum {
-  COM_EXIT,
+  COM_MENU_EXIT,
   COM_SAQUE,
   COM_DEPOSITO,
   COM_EMPRESTIMO,
@@ -30,7 +32,7 @@ init:
          "1. Entrar\n"\
          "2. Cadastre-se\n"\
          "3. Sair\n>>> ");
-  scanf("%d", &i);
+  scanf("%d", (int*) &i);
 
   switch (i) {
     case COM_SIGNIN :{
@@ -52,25 +54,28 @@ init:
   bool active = true;
 
   while (active) {
-    commands_main inp;
-    printf("Bem vindo(a) %s\n"\
+    commands_main inp = -1;
+    printf("\nBem vindo(a) %s\n"\
            "Clubecoins: %lf\n"\
            "1. Sacar\n"\
            "2. Depositar\n"\
            "3. Empréstimo\n"\
            "4. Investir\n"\
            "0. Sair\n"\
-           ">>> "
-           );
-    sscanf("%d", &inp);
+           ">>> ", user.nome, user.coin);
+    scanf("%1d", (int*) &inp);
 
     switch (inp) {
-      case COM_EXIT :{
-        printf("bye bye");
-        active = true;
+      case COM_MENU_EXIT :{
+        printf("bye bye\n");
+        cadastrar_usuario(user); 
+        active = false;
         break;
       }
-
+      case COM_DEPOSITO :{
+        deposit_main(&user.coin);
+        break;
+      }
       default :{
         printf("Opção não implementada\n");
         break;

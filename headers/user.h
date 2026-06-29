@@ -1,7 +1,7 @@
 #ifndef USER_H
 #define USER_H
 
-#include <time_h>
+#include <time.h>
 
 // Types
 typedef struct {

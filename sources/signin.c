@@ -44,5 +44,5 @@ init:
   }
   
   printf("Bem vindo(a) %s!", nome);
-  user_init(retorno, user.nome, user.senha, user.ano_nasc);
+  *retorno = user;
 }
