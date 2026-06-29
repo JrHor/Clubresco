@@ -7,6 +7,7 @@
 #include "signin.h"
 #include "signup.h"
 #include "deposit.h"
+#include "saco.h"
 
 typedef enum {
   COM_SIGNIN = 1,
@@ -72,10 +73,15 @@ init:
         active = false;
         break;
       }
+      case COM_SAQUE :{
+        saco_main(&user.coin);
+        break;
+      }
       case COM_DEPOSITO :{
         deposit_main(&user.coin);
         break;
       }
+
       default :{
         printf("Opção não implementada\n");
         break;

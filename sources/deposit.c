@@ -26,7 +26,7 @@ void getsubs(size_t size, size_t* start, char* texto, char* dest){
 bool ler_coin(char* texto, double* valor) {
   // verificar integridade: header com '---'
   size_t i;
-  for (i = 0; texto[i] == '-' && i < 26; i++);
+  for (i = 0; texto[i] == '-' && i <= 25; i++);
   if (i < 25) {
     printf("Clubecoin não é válida\nheader error 00 <i < 25>\n");
     return false;
@@ -49,7 +49,7 @@ bool ler_coin(char* texto, double* valor) {
   char txt_coin[6];
   getsubs(5, &i, texto, txt_coin);
   for (int tl = 0; tl < 5; tl++){
-    if (!isdigit(txt_coin[tl])) {
+    if (!isdigit(txt_coin[tl]) && txt_coin[tl] != '.') {
       printf("A Clubecoin não é válida\nNaN error 00 <i = %c\n",txt_coin[tl]);
       return false;
     }
@@ -63,7 +63,7 @@ bool ler_coin(char* texto, double* valor) {
     printf("A Clubecoin não é válida\ncoin error 00 <%c>\ndica: tente usar '.' ao invés de ','\n", *txt_coin);
     return false;
   }
-  if (texto[++i] != '\n') {
+  if (texto[i] != '\n') {
     printf("A Clubecoin não é válida\nvalor error 03 <i = %c>\n", texto[i]);
     return false;
   }
@@ -91,7 +91,7 @@ bool ler_coin(char* texto, double* valor) {
   //verificar integridade: "código: abcd 1234"
   char txt_code[19];
   getsubs(18, &i, texto, txt_code);
-  if (strcmp("código: abcd 1234", txt_code)) {
+  if (strcmp("código: abcd-1234", txt_code)) {
     printf("A Clubecoin não é válida\ncode error 00 <code diff>\n");
     return false;
   }
