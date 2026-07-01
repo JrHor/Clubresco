@@ -4,6 +4,8 @@
 #include <stdlib.h>
 
 #include "saco.h"
+#include "user.h"
+#include "loan.h"
 
 bool gerar_coin(double valor) {
   // receber data no formato
@@ -22,14 +24,14 @@ bool gerar_coin(double valor) {
   }
 
   fprintf(f, "--------------------------\n"\
-             "valor: %2.2lf\n"\
+             "valor: %05.2lf\n"\
              "criação: %s\n"\
              "código: abcd-1234\n"\
              "--------------------------\0", valor, data_formatada);
   return true;
 }
 
-bool saco_main(double* moedas)
+bool saco_main(User* user)
 {
   char valor[6];
 init:
@@ -48,13 +50,12 @@ init:
   }
 
   // vê se é grande ou não
-  if (valor_conv > *moedas) {
+  if (valor_conv > user->coin) {
     // faz aquela brincadeira né kk
     char inp;
-    printf("O valor de saque é maior que sua quantia em dinheiro!\nDeseja fazer um Empréstimo no valor de %lf? [Y/ N] ", valor_conv - *moedas);
+    printf("O valor de saque é maior que sua quantia em dinheiro!\nDeseja fazer um Empréstimo no valor de %lf? [Y/ N] ", valor_conv - user->coin);
     if ((inp = getchar()) == 'y' || inp == 'Y'){
-      // Empréstimo
-      //...
+      loan_main(user, valor_conv-user->coin);
     }
     
     printf("cancelando operação\n");
@@ -64,6 +65,6 @@ init:
   if (!gerar_coin(valor_conv)){
     return false;
   }
-  *moedas -= valor_conv;
+  user->coin -= valor_conv;
   return true;
 }

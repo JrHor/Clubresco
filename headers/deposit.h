@@ -14,7 +14,7 @@ ler_coin: verifica a integridade de uma coin e retorna o valor dela em VALOR e r
 bool ler_coin(char* texto, double* valor);
 
 // main
-int deposit_main(double* conta);
+bool deposit_main(double* conta);
 
 #endif // !COM_DEPOSIT
 

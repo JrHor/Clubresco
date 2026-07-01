@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "sources/arquivos.c" // maldito adolfo
 #include "user.h"
@@ -8,6 +9,7 @@
 #include "signup.h"
 #include "deposit.h"
 #include "saco.h"
+#include "loan.h"
 
 typedef enum {
   COM_SIGNIN = 1,
@@ -56,6 +58,24 @@ init:
 
   while (active) {
     commands_main inp = -1;
+    time_t timenow = time(NULL);
+
+    if (timenow >= user.emprestimos.data_ven && user.emprestimos.data_ven != 0){
+     if (deposit_main(&user.emprestimos.pagamento)){
+        if (user.emprestimos.pagamento < 0) continue;
+        user.emprestimos.data_ven = 0;
+
+        if (user.emprestimos.pagamento > 0) {
+          user.coin = user.emprestimos.pagamento;
+          user.emprestimos.pagamento = 0.0;
+          printf("O Clubresco agradece por pagar sua dívida\n");
+          continue;
+        }
+      } 
+      printf("Paga tua divida vagabundo!");
+      break;
+    }
+
     printf("\nBem vindo(a) %s\n"\
            "Clubecoins: %lf\n"\
            "1. Sacar\n"\
@@ -74,14 +94,23 @@ init:
         break;
       }
       case COM_SAQUE :{
-        saco_main(&user.coin);
+        saco_main(&user);
         break;
       }
       case COM_DEPOSITO :{
         deposit_main(&user.coin);
         break;
       }
+      case COM_EMPRESTIMO :{
+        char valor[250];
+        printf("digite o valor do emprestimo: ");
+        scanf("%s", valor);
 
+        double emprestimo = strtod(valor, NULL);
+
+        loan_main(&user, emprestimo);
+        break;
+      }
       default :{
         printf("Opção não implementada\n");
         break;

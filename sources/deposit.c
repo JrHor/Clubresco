@@ -9,7 +9,7 @@
  --------------------------
  valor: 00,00
  criação: 00/00/0000 00:00
- código: abcd 1234
+ código: abcd-1234
  --------------------------
 */
 
@@ -28,7 +28,7 @@ bool ler_coin(char* texto, double* valor) {
   size_t i;
   for (i = 0; texto[i] == '-' && i <= 25; i++);
   if (i < 25) {
-    printf("Clubecoin não é válida\nheader error 00 <i < 25>\n");
+    printf("Clubecoin não é válida\nheader error 00 <i = %ld>\n", i);
     return false;
   }
   if (texto[i++] != '\n') {
@@ -53,7 +53,7 @@ bool ler_coin(char* texto, double* valor) {
       printf("A Clubecoin não é válida\nNaN error 00 <i = %c\n",txt_coin[tl]);
       return false;
     }
-  }
+  } 
 
   char *ptr;
   *valor = strtod(txt_coin, &ptr);
@@ -111,17 +111,17 @@ bool ler_coin(char* texto, double* valor) {
     printf("A sua Clubecoin é integra!\n");
     return true;
   }
-  printf ("erro desvonhecido <i = %d '%c'>\n", i, texto[i]);
+  printf ("erro desvonhecido <i = %ld '%c'>\n", i, texto[i]);
   return false;
 }
 
-int deposit_main(double* conta)
+bool deposit_main(double* conta)
 {
 
   printf("Procurando moedas\n");
   if (!existe_arquivo("coin.txt")) {
     printf("Você não pode depositar nada!\nInsira um arquivo coin.txt na pasta do programa\n");
-    return EXIT_SUCCESS;
+    return false;
   }
   
   char* texto = malloc(512 * sizeof(char));
@@ -130,7 +130,7 @@ int deposit_main(double* conta)
   // ler o valor
   double valor;
   if (!ler_coin(texto, &valor)) {
-    return EXIT_SUCCESS;
+    return false;
   }
   *conta += valor;
 
@@ -138,6 +138,6 @@ int deposit_main(double* conta)
   
   free(texto);
   deletar_arquivo("coin.txt");
-  return EXIT_SUCCESS;
+  return true;
 }
 
