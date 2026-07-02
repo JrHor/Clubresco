@@ -10,6 +10,7 @@
 #include "deposit.h"
 #include "saco.h"
 #include "loan.h"
+#include "investment.h"
 
 typedef enum {
   COM_SIGNIN = 1,
@@ -109,6 +110,24 @@ init:
         double emprestimo = strtod(valor, NULL);
 
         loan_main(&user, emprestimo);
+        break;
+      }
+      case COM_INVESTIR :{
+        if (user.investimento.data_inv != 0){
+          if (user.investimento.data_inv > timenow ) {
+            printf("Faltam %ld dias para você resgatar seu investimento\n", (user.investimento.data_inv - timenow) / (60*60*24));
+            continue;
+          }
+          
+          printf("Seu retorno foi de %lf em 30 dias com um crescimento de %d%%",user.investimento.coin,(int) (user.investimento.rendimento-1)*100);
+
+          user.investimento.coin += user.coin;
+          user.investimento.coin = 0;
+          user.investimento.rendimento = 0;
+          user.investimento.data_inv = 0;
+          continue;
+        }
+        investment_main(&user);
         break;
       }
       default :{

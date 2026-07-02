@@ -1,0 +1,11 @@
+# Comando de compilação #
+gcc -w -I headers/ main.c sources/deposit.c sources/investment.c sources/loan.c  sources/s* sources/user.c -o Banco_do_clube
+
+a flag -w é para evitar a poluição dos warns devido o include de arquivos.c
+
+# demo.usr #
+demo.usr é a conta de demonstração já cadastrada no sistema que possui 9900 Clubecoins
+Usuário: demo
+Senha: 0000
+
+ 
